@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseball Simplificado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        
+        .game-container {
+            margin: 0 auto;
+            max-width: 500px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin: 20px auto;
+            width: 250px;
+        }
+        
+        .cell {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+        
+        .strike-zone {
+            background-color: #ffcccc;
+        }
+        
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .button:hover {
+            background-color: #45a049;
+        }
+        
+        .message {
+            margin: 20px;
+            font-size: 18px;
+            min-height: 50px;
+        }
+        
+        .team {
+            font-weight: bold;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Baseball Simplificado</h1>
+        
+        <div class="team" id="current-player">Time do Lançador</div>
+        
+        <div class="message" id="message">Lançador: escolha onde lançar a bola</div>
+        
+        <div class="grid" id="grid">
+            <!-- As células serão geradas por JavaScript -->
+        </div>
+        
+        <button class="button" id="no-swing">Não Rebater</button>
+        
+        <div class="team">Placar:</div>
+        <div id="score">Lançador: 0 - Rebatedor: 0</div>
+    </div>
+
+    <script src="app.js">
+        // Aqui vai o código JavaScript
+    </script>
+</body>
+</html>
