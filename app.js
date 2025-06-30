@@ -11,6 +11,32 @@ document.addEventListener('DOMContentLoaded', function() {
     let gameState = 'pitching'; // 'pitching' ou 'batting'
     let pitcherChoice = null;
     let scores = { innings: 0, away:0, home: 0, strikes: 0, balls: 0, batter: 0, outs: 0 };
+    let bases = { first: false, second: false, third: false };
+
+    function baseAdvance(downInning) {
+        if (bases.third) {
+            if (downInning) {
+                scores.home++;
+                messageEl.textContent += ` Ponto para o time da casa!`;
+            } else {
+                scores.away++;
+                messageEl.textContent += ` Ponto para o time visitante!`;
+            }
+            bases.third = false;
+        }
+        // nesse ponto a terceira base está vazia, pq ou ela já estava vazia ou acabou de ficar
+        if (bases.second) {
+            bases.third = true; // Avança da segunda para a terceira
+            bases.second = false; // Segunda base agora está vazia
+        }
+        // nesse ponto a segunda base está vazia, pq ou ela já estava vazia ou acabou de ficar
+        if (bases.first) {
+            bases.second = true; // Avança da primeira para a segunda
+            bases.first = false; // Primeira base agora está vazia
+        }
+        // nesse ponto a primeira base está vazia, pq ou ela já estava vazia ou acabou de ficar
+        bases.first = true; // Avança para a primeira base  
+    }
     
     // Criar o grid 5x5
     function createGrid() {
@@ -51,14 +77,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Destacar a escolha do lançador
             clearHighlights();
-            //e.target.style.backgroundColor = '#aaffaa';
         } else if (gameState === 'batting') {
             // Rebatedor escolhe a posição
             
             if (row === pitcherChoice.row && col === pitcherChoice.col) {
                 // Acertou a rebatida
                 messageEl.textContent = `REBATIDA! Ponto para o rebatedor!`;
-                scores.batter++;
+                // scores.batter++;
+                baseAdvance(downInning);
                 e.target.style.backgroundColor = '#aaffaa';
                 
             } else {
@@ -114,7 +140,8 @@ document.addEventListener('DOMContentLoaded', function() {
             messageEl.textContent = `3 Strikes! Rebatedor eliminado.`;
             if (scores.outs >= 3) {
                 scores.outs = 0;
-                scores.batter = 0;
+                // scores.batter = 0;
+                bases = { first: false, second: false, third: false }; // Limpar bases
                 downInning = !downInning; // Trocar time
                 messageEl.textContent += ` Turnover. Próximo time: ${downInning ? 'Home' : 'Away'}`;
                 if (!downInning) {
@@ -126,21 +153,10 @@ document.addEventListener('DOMContentLoaded', function() {
             scores.balls = 0;
             scores.strikes = 0;
             messageEl.textContent += ` 4 Balls! Rebatedor avança para a primeira base.`;
-            scores.batter++;
-        }
-        if (scores.batter > 3){
-            scores.batter--;
-            if (downInning){
-                scores.home++;
-                messageEl.textContent += ` Time da casa marcou um ponto!`;
-            }
-            else {
-                scores.away++;
-                messageEl.textContent += ` Time visitante marcou um ponto!`;
-            }
+            baseAdvance(downInning);
         }
         
-        scoreEl.textContent = `Home: ${scores.home} - Away: ${scores.away} | Inning: ${scores.innings} ${downInning? '\\/': '/\\'} | Strikes: ${scores.strikes} | Balls: ${scores.balls} | Outs: ${scores.outs} | Bases: ${scores.batter}`;
+        scoreEl.textContent = `Home: ${scores.home} - Away: ${scores.away} | Inning: ${scores.innings} ${downInning? '\\/': '/\\'} | Strikes: ${scores.strikes} | Balls: ${scores.balls} | Outs: ${scores.outs} | Bases: ${bases.first ? '1st' : ''} - ${bases.second ? '2nd' : ''} - ${bases.third ? '3rd' : ''}`;
     }
     
     // Reiniciar o round
