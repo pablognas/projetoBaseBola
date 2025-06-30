@@ -10,10 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let downInning = false; // 'away' ou 'home'
     let gameState = 'pitching'; // 'pitching' ou 'batting'
     let pitcherChoice = null;
-    let scores = { innings: 0, away:0, home: 0, strikes: 0, balls: 0, batter: 0, outs: 0 };
+    let scores = { innings: 1, away:0, home: 0, strikes: 0, balls: 0, batter: 0, outs: 0 };
     let bases = { first: false, second: false, third: false };
+    let inningFinal = 2;
 
     function baseAdvance(downInning) {
+        scores.strikes = 0; // Resetar strikes após uma rebatida
+        scores.balls = 0; // Resetar balls após uma rebatida
         if (bases.third) {
             if (downInning) {
                 scores.home++;
@@ -147,6 +150,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!downInning) {
                     scores.innings++;
                 }
+                if ((scores.innings == inningFinal && downInning && scores.home > scores.away) || scores.innings > inningFinal && !downInning && scores.away != scores.home) {
+                    scoreEl.textContent += ` Fim do jogo! Placar final: Home ${scores.home} - Away ${scores.away}`;
+                    gameState = 'game-over';
+                    document.getElementById('no-swing').setAttribute('disabled', 'true');
+                    setCellsEnabled(false);
+                    return;
+                }
             }
         }
         if (scores.balls > 3){
@@ -169,7 +179,17 @@ document.addEventListener('DOMContentLoaded', function() {
         clearHighlights();
     }
     
+
+    function setCellsEnabled(enabled) {
+        const cells = document.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            cell.style.pointerEvents = enabled ? 'auto' : 'none';
+            cell.style.opacity = enabled ? '1' : '0.5';
+        });
+    }
+
     // Inicializar o jogo
     createGrid();
     updateScore();
+    setCellsEnabled(true);
 });
