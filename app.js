@@ -188,6 +188,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Controle da tela prévia
+    document.getElementById('start-game').addEventListener('click', function() {
+        document.getElementById('pre-game').style.display = 'none';
+        const gameContainer = document.getElementById('game-container');
+        gameContainer.style.filter = '';
+        gameContainer.style.pointerEvents = '';
+    });
+
     // Inicializar o jogo
     createGrid();
     updateScore();
