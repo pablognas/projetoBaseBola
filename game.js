@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
             baseAdvance(downInning);
         }
         
-        scoreEl.textContent = `Home: ${scores.home} - Away: ${scores.away} | Inning: ${scores.innings} ${downInning? '\\/': '/\\'} | Strikes: ${scores.strikes} | Balls: ${scores.balls} | Outs: ${scores.outs} | Bases: ${bases.first ? '1st' : ''} - ${bases.second ? '2nd' : ''} - ${bases.third ? '3rd' : ''}`;
+        scoreEl.textContent = `Home: ${scores.home} - Away: ${scores.away} | Inning: ${scores.innings} ${downInning? '\\/' : '/\\'} | Strikes: ${scores.strikes} | Balls: ${scores.balls} | Outs: ${scores.outs} | Bases: ${bases.first ? '1st' : ''} - ${bases.second ? '2nd' : ''} - ${bases.third ? '3rd' : ''}`;
     }
     
     // Reiniciar o round
@@ -187,14 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
             cell.style.opacity = enabled ? '1' : '0.5';
         });
     }
-
-    // Controle da tela prévia
-    document.getElementById('start-game').addEventListener('click', function() {
-        document.getElementById('pre-game').style.display = 'none';
-        const gameContainer = document.getElementById('game-container');
-        gameContainer.style.filter = '';
-        gameContainer.style.pointerEvents = '';
-    });
 
     // Inicializar o jogo
     createGrid();

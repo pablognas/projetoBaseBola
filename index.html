@@ -3,93 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baseball Simplificado</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-        }
-        
-        .game-container {
-            margin: 0 auto;
-            max-width: 500px;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
-            margin: 20px auto;
-            width: 250px;
-        }
-        
-        .cell {
-            width: 50px;
-            height: 50px;
-            border: 1px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            background-color: #f0f0f0;
-        }
-        
-        .strike-zone {
-            background-color: #ffcccc;
-        }
-        
-        .button {
-            padding: 10px 20px;
-            margin: 10px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        
-        .button:hover {
-            background-color: #45a049;
-        }
-        
-        .message {
-            margin: 20px;
-            font-size: 18px;
-            min-height: 50px;
-        }
-        
-        .team {
-            font-weight: bold;
-            margin: 10px;
-        }
-    </style>
+    <title>Baseball Simplificado - Início</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="pre-game" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:#fff;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;">
         <h2>Bem-vindo ao Baseball Simplificado!</h2>
-        <button class="button" id="start-game">Começar Partida</button>
-    </div>
-    
-    <div class="game-container">
-        <h1>Baseball Simplificado</h1>
-        
-        <div class="team" id="current-player">Time do Lançador</div>
-        
-        <div class="message" id="message">Lançador: escolha onde lançar a bola</div>
-        
-        <div class="grid" id="grid">
-            <!-- As células serão geradas por JavaScript -->
+        <div style="display:flex;flex-direction:column;gap:20px;align-items:center;">
+            <button class="button" id="btn-editar-times">Editar Times</button>
+            <button class="button" id="btn-comecar-jogo">Começar Jogo</button>
         </div>
-        
-        <button class="button" id="no-swing">Não Rebater</button>
-        
-        <div class="team">Placar:</div>
-        <div id="score">Lançador: 0 - Rebatedor: 0</div>
     </div>
-
-    <script src="app.js">
-        // Aqui vai o código JavaScript
-    </script>
+    <script src="index.js"></script>
 </body>
 </html>
